@@ -15,3 +15,21 @@ resource "aws_instance" "web" {
     caller_id  = "${data.aws_caller_identity.current.user_id}"
   }
 }
+
+# --- https://www.terraform.io/docs/providers/aws/d/ami.html
+# --- filters: http://docs.aws.amazon.com/cli/latest/reference/ec2/describe-images.html
+data "aws_ami" "ubuntu" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-trusty-14.04-amd64-server-*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  owners = ["099720109477"] # Canonical
+}
