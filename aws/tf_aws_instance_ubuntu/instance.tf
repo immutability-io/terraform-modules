@@ -8,11 +8,14 @@ data "aws_caller_identity" "current" {}
 resource "aws_instance" "web" {
   ami           = "${data.aws_ami.ubuntu.id}"
   instance_type = "${var.instance_type}"
+  key_name      = "${var.key_name}"
+  user_data     = "${file(var.user_data)}"
 
   tags {
     account_id = "${data.aws_caller_identity.current.account_id}"
     caller_arn = "${data.aws_caller_identity.current.arn}"
     caller_id  = "${data.aws_caller_identity.current.user_id}"
+    terraform  = "true"
   }
 }
 

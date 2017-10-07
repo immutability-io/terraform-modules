@@ -4,8 +4,10 @@ variable "instance_type" {
   default     = "t2.micro"
 }
 
+variable "key_name" {
+  description = "The key name to use for the instance."
+}
 
-# --- variables for providers
-variable "aws_access_key" {}
-variable "aws_secret_key" {}
-variable "aws_region" {}
+variable "user_data" {
+  description = "The user data to provide when launching the instance. Do not pass gzip-compressed data via this argument."
+}
