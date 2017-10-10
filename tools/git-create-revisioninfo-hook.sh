@@ -19,4 +19,6 @@ revcount=`git log --oneline | wc -l`
 latesttag=`git describe --tags --abbrev=0`
 
 VERSION="[$branch]$latesttag-$revcount($shorthash)"
-echo $VERSION > $FILENAME
+echo ${VERSION} > ${FILENAME}
+
+git add ${FILENAME}
