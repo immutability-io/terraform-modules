@@ -12,6 +12,7 @@ resource "aws_instance" "web" {
   user_data     = "${file(var.user_data)}"
 
   tags {
+    module_version = "${var.module_version}"
     account_id = "${data.aws_caller_identity.current.account_id}"
     caller_arn = "${data.aws_caller_identity.current.arn}"
     caller_id  = "${data.aws_caller_identity.current.user_id}"

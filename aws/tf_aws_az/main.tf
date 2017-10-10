@@ -29,6 +29,7 @@ resource "aws_subnet" "dmz" {
   vpc_id                  = "${var.vpc_id}"
 
   tags {
+    module_version = "${var.module_version}"
     application = "${var.stack_item_fullname}"
     account_id = "${data.aws_caller_identity.current.account_id}"
     caller_arn = "${data.aws_caller_identity.current.arn}"
@@ -101,6 +102,7 @@ resource "aws_instance" "nat" {
   vpc_security_group_ids      = ["${element(aws_security_group.sg_nat.*.id,count.index)}"]
 
   tags {
+    module_version = "${var.module_version}"
     application = "${var.stack_item_fullname}"
     account_id = "${data.aws_caller_identity.current.account_id}"
     caller_arn = "${data.aws_caller_identity.current.arn}"
@@ -132,6 +134,7 @@ resource "aws_security_group" "sg_nat" {
   }
 
   tags {
+    module_version = "${var.module_version}"
     application = "${var.stack_item_fullname}"
     account_id = "${data.aws_caller_identity.current.account_id}"
     caller_arn = "${data.aws_caller_identity.current.arn}"
@@ -161,6 +164,7 @@ resource "aws_subnet" "lan" {
   vpc_id            = "${var.vpc_id}"
 
   tags {
+    module_version = "${var.module_version}"
     application = "${var.stack_item_fullname}"
     account_id = "${data.aws_caller_identity.current.account_id}"
     caller_arn = "${data.aws_caller_identity.current.arn}"
@@ -178,6 +182,7 @@ resource "aws_route_table" "rt_lan" {
   vpc_id           = "${var.vpc_id}"
 
   tags {
+    module_version = "${var.module_version}"
     application = "${var.stack_item_fullname}"
     account_id = "${data.aws_caller_identity.current.account_id}"
     caller_arn = "${data.aws_caller_identity.current.arn}"
