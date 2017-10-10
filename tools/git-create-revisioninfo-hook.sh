@@ -5,7 +5,7 @@
 # --- Example:
 # ---   [master]v2.0.0-beta-191(a830382)
 # --- Install:
-# ---  cp tools/git-create-revisioninfo-hook.sh .git/hooks/pre-commit
+# ---  cp tools/git-create-revisioninfo-hook.sh .git/hooks/pre-push
 # ---  cp tools/git-create-revisioninfo-hook.sh .git/hooks/post-checkout
 # ---  cp tools/git-create-revisioninfo-hook.sh .git/hooks/post-merge
 # ---  chmod +x .git/hooks/post-*
@@ -27,3 +27,4 @@ VERSION="[$branch]$latesttag-$revcount($shorthash)"
 echo ${VERSION} > ${FILENAME}
 
 git add ${FILENAME}
+git commit -m 'gitrevision' ${FILENAME}
