@@ -13,6 +13,11 @@ variable "stack_item_label" {
   default     = "qckstrt"
 }
 
+variable "module_version" {
+  type        = "string"
+  description = "Identifies the version of the terraform module used for this stack. This value is used to create the 'module_version' resource tag for resources created by this stack item."
+}
+
 ## VPC parameters
 variable "enable_classiclink" {
   type        = "string"

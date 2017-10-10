@@ -11,6 +11,11 @@ variable "stack_item_label" {
   description = "Short form identifier for this stack. This value is used to create the 'Name' resource tag for resources created by this stack item, and also serves as a unique key for re-use."
 }
 
+variable "module_version" {
+  type        = "string"
+  description = "Identifies the version of the terraform module used for this stack. This value is used to create the 'module_version' resource tag for resources created by this stack item."
+}
+
 ## Peering parameters
 variable "accepter_allow_classic_link_to_remote" {
   type        = "string"
