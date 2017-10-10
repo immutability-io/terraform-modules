@@ -13,7 +13,6 @@
 
 FILENAME='gitrevision'
 
-exec 1>&2
 branch=`git rev-parse --abbrev-ref HEAD`
 shorthash=`git log --pretty=format:'%h' -n 1`
 revcount=`git log --oneline | wc -l`
