@@ -11,3 +11,8 @@ variable "ebs_volume_size" {
 variable "ebs_volume_snap_id" {
   description = "A snapshot to base the EBS volume off of."
 }
+
+variable "module_version" {
+  type        = "string"
+  description = "Identifies the version of the terraform module used for this stack. This value is used to create the 'module_version' resource tag for resources created by this stack item."
+}
