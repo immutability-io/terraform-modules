@@ -10,6 +10,7 @@ resource "aws_ebs_volume" "create_ebs_module" {
     snapshot_id       = "${var.ebs_volume_snap_id}"
     availability_zone = "${var.ebs_volme_az}"
     tags {
+      module_version = "${var.module_version}"
       account_id = "${data.aws_caller_identity.current.account_id}"
       caller_arn = "${data.aws_caller_identity.current.arn}"
       caller_id  = "${data.aws_caller_identity.current.user_id}"
