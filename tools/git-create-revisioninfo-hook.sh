@@ -13,6 +13,7 @@
 
 FILENAME='gitrevision'
 
+exec 1>&2
 branch=`git rev-parse --abbrev-ref HEAD`
 shorthash=`git log --pretty=format:'%h' -n 1`
 revcount=`git log --oneline | wc -l`
@@ -26,4 +27,4 @@ VERSION="[$branch]$latesttag-$revcount($shorthash)"
 echo ${VERSION} > ${FILENAME}
 
 git add ${FILENAME}
-git commit -m 'gitrevision' ${FILENAME}
+#git commit -m 'gitrevision' ${FILENAME}
