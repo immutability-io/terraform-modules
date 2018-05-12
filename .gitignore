@@ -7,3 +7,16 @@
 
 # --- OSX crap
 .DS_Store
+
+# intellij files
+*.iml
+.idea
+
+*.crt
+*.csr
+*.key
+*.ovpn
+ec2-key
+*.pub
+.roles
+openvpn.retry
