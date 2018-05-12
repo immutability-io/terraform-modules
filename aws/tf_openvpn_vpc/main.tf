@@ -9,7 +9,7 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "1.30.0"
 
-  name = "tf-openvpn-vpc"
+  name = "${var.stack_item_label}-vpc"
 
   cidr = "10.0.0.0/16"
 
@@ -88,13 +88,13 @@ resource "aws_instance" "openvpn" {
     caller_arn = "${data.aws_caller_identity.current.arn}"
     caller_id  = "${data.aws_caller_identity.current.user_id}"
     terraform  = "true"
-    Name        = "${var.stack_item_label}"
+    Name        = "${var.stack_item_label}-openvpn-server-ec2"
   }
   vpc_security_group_ids = ["${aws_security_group.openvpn.id}"]
 }
 
 resource "aws_security_group" "openvpn" {
-  name = "openvpn"
+  name = "${var.stack_item_label}-openvpn-sg"
   description = "openvpn security groups"
   vpc_id      = "${module.vpc.vpc_id}"
 }
@@ -173,14 +173,14 @@ resource "aws_instance" "test_instance" {
     caller_arn = "${data.aws_caller_identity.current.arn}"
     caller_id  = "${data.aws_caller_identity.current.user_id}"
     terraform  = "true"
-    Name        = "${var.stack_item_label}_testinstance"
+    Name        = "${var.stack_item_label}-test-ec2"
   }
   vpc_security_group_ids = ["${aws_security_group.test_instance.id}"]
 }
 
 resource "aws_security_group" "test_instance" {
   count = "${var.provision_test_instance == true ? 1 : 0}"
-  name = "test_instance"
+  name = "${var.stack_item_label}-test-sg"
   description = "test_instance security groups"
   vpc_id      = "${module.vpc.vpc_id}"
 }
