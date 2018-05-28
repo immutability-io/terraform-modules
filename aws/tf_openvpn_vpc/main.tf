@@ -13,10 +13,11 @@ module "vpc" {
 
   cidr = "10.0.0.0/16"
 
-  azs             = ["us-east-1a", "us-east-1b", "us-east-1c"]
-  private_subnets = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
-  public_subnets  = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
+  azs             = ["us-east-1a", "us-east-1b", "us-east-1c", "us-east-1d", "us-east-1e", "us-east-1f"]
+  private_subnets = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24", "10.0.4.0/24", "10.0.5.0/24", "10.0.6.0/24"]
+  public_subnets  = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24", "10.0.104.0/24", "10.0.105.0/24", "10.0.106.0/24"]
   map_public_ip_on_launch = false
+  enable_dns_hostnames = true
 
   enable_nat_gateway = true
   single_nat_gateway = true
@@ -77,11 +78,12 @@ data "aws_ami" "ubuntu_ue1_latest" {
 }
 
 resource "aws_instance" "openvpn" {
-  ami               = "${data.aws_ami.ubuntu_ue1_latest.id}"
+  ami               = "ami-4004883f"
   instance_type     = "t2.micro"
   monitoring        = false
   key_name          = "${aws_key_pair.terraformer.key_name}"
   subnet_id = "${module.vpc.public_subnets[2]}"
+
   tags {
     module_version = "${var.module_version}"
     application = "${var.stack_item_fullname}"
@@ -132,6 +134,7 @@ resource "aws_eip" "openvpn" {
 }
 
 resource "aws_key_pair" "terraformer" {
+  depends_on = ["null_resource.make_keypair"]
   key_name   = "openvpn-key"
   public_key = "${file("${var.keyfile_name}.pub")}"
 }
@@ -207,7 +210,7 @@ terraform {
   }
 }
 
-data "terraform_remote_state" "orchis" {
+data "terraform_remote_state" "remote_state" {
   backend = "s3"
 
   config {
