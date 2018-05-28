@@ -11,7 +11,7 @@
 #
 #     https://www.nomadproject.io/docs/job-specification/job.html
 #
-job "example" {
+job "example1" {
   # The "region" parameter specifies the region in which to execute the job. If
   # omitted, this inherits the default region name of "global". Note that this example job
   # is hard-coded to us-east-1, so if you are running your example elsewhere, make
@@ -23,6 +23,11 @@ job "example" {
   # is hard-coded to us-east-1, so if you are running your example elsewhere, make
   # sure to update this setting, as well as the region setting.
   datacenters = ["us-east-1a", "us-east-1b", "us-east-1c", "us-east-1d", "us-east-1e"]
+
+  constraint {
+    attribute = "${attr.kernel.name}"
+    value = "linux"
+  }
 
   # The "type" parameter controls the type of job, which impacts the scheduler's
   # decision on placement. This configuration is optional and defaults to
